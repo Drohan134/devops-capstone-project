@@ -62,8 +62,18 @@ def create_accounts():
 ######################################################################
 
 # ... place you code here to LIST accounts ...
+######################################################################
+# LIST ALL ACCOUNTS
+######################################################################
+@app.route("/accounts", methods=["GET"])
+def get_accounts():
+    """
+    Lists all Accounts
+    """
+    app.logger.info("Request to list all Accounts")
 
-
+    accounts = Account.all()
+    return {"accounts": [account.serialize() for account in accounts]}, status.HTTP_200_OK
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
@@ -73,7 +83,7 @@ def create_accounts():
 # READ AN ACCOUNT
 ######################################################################
 @app.route("/accounts/<int:account_id>", methods=["GET"])
-def get_accounts(account_id):
+def get_account(account_id):
     """
     Reads an Account
     This endpoint will read an Account based on the account_id that is requested
